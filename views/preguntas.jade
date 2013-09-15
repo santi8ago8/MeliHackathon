@@ -2,8 +2,8 @@ h2 Preguntas
 section.preguntas
     article.questItem.item.row-fluid(ng-repeat='art in questions')
         img.questItem.img-rounded(nr-src='{{art.item.thumbnail}}')
-        a(href='{{art.item.permalink}}') {{art.item.title}}
-        a(href='{{art.user.permalink}}')  {{art.user.nickname}}
+        a(href='{{art.item.permalink}}')    {{art.item.title}}
+        a(href='{{art.user.permalink}}')  {{art.user.nickname}}   
         span.time(time='{{art.info.date_created}}')
         p.leap Pregunta: {{art.info.text}}
         form.response.row-fluid(ng-submit='sendResp()')
