@@ -152,7 +152,7 @@ exports.setResp = function (req, res) {
     };
     console.log(data);
     needle.post(
-        'https://api.mercadolibre.com/answers?access_token=' + req.body.access_token,  // + req.body.id+"/answers/",
+        'https://api.mercadolibre.com/answers?access_token=' + req.session.access_token,  // + req.body.id+"/answers/",
         data,
         {secureProtocol: "SSLv3_method"}, function (a, b) {
             console.log(a, b.body);
