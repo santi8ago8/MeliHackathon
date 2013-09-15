@@ -167,6 +167,7 @@ exports.getAllQuest = function (req, res) {
             needle.get('https://api.mercadolibre.com/users/' + users.join(),
                 {secureProtocol: "SSLv3_method"},
                 function (err, rUs) {
+                    console.log('Users: ', rUs);
                     for (var i = 0; i < rUs.body.length; i++) {
                         var us = rUs.body[i];
                         for (var j = 0; j < ret.length; j++) {
