@@ -167,7 +167,7 @@ exports.getAllQuest = function (req, res) {
             needle.get('https://api.mercadolibre.com/users/' + users.join(),
                 {secureProtocol: "SSLv3_method"},
                 function (err, rUs) {
-                    console.log('Users: ', rUs);
+
                     if (!Array.isArray(rUs.body))
                         rUs.body = [rUs.body];
                     for (var i = 0; i < rUs.body.length; i++) {
@@ -184,6 +184,7 @@ exports.getAllQuest = function (req, res) {
                     needle.get('https://api.mercadolibre.com/items/' + items.join(),
                         {secureProtocol: "SSLv3_method"},
                         function (err, rIt) {
+                            console.log('its ', rIt.body);
                             if (!Array.isArray(rIt.body))
                                 rIt.body = rIt[rIt.body];
                             for (var i = 0; i < rIt.length; i++) {
