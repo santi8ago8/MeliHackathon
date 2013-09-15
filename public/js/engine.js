@@ -79,8 +79,26 @@ controllersMeli.allController = function ($scope) {
     });
 
     //guardar preguntas
-    $scope.sendResp=function(resp){
-        console.log(resp);
+    $scope.sendResp = function (resp) {
+        var elem = $(event.target);
+        while (!elem.is('form')) elem = $(elem.parent);
+
+        if (elem.find('textarea').val() != '') {
+            resp = {
+                text: elem.find('textarea').val(),
+                id: elem.find('textarea').attr('idquest'),
+                time: moment().toISOString()
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://santi8ago8.kd.io:8080/setResp",
+                data: resp,
+                success: function (a, b) {
+                    console.log(a, b)
+                },
+                dataType: 'json'
+            });
+        }
     }
 
 };
@@ -92,7 +110,7 @@ setInterval(function () {
 
     $.each(elementos, function (index, elem) {
         var t = $(elem).attr('time');
-        $(elem).text(" "+moment(t).fromNow());
+        $(elem).text(" " + moment(t).fromNow());
     });
 
 }, 1000);

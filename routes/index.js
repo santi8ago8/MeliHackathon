@@ -130,6 +130,7 @@ exports.test = function (a, b) {
     io.sockets.emit('test', Math.random());
 };
 
+
 var io = require('socket.io').listen(8081, {log: false});
 
 io.sockets.on('connection', function (socket) {
@@ -140,3 +141,22 @@ io.sockets.on('connection', function (socket) {
         socket.join(room);
     });
 });
+
+
+exports.setResp = function (req, res) {
+
+    console.log('sending respnse: ', req.body);
+    needle.post(
+        'https://api.mercadolibre.com/answers/' + req.body.id,
+        {
+            date_created: req.body.time,
+            status: 'active',
+            text: req.body.text
+        },
+        {secureProtocol: "SSLv3_method"}, function (a, b) {
+            console.log(a, b);
+        }
+    );
+
+    res.json({});
+};
