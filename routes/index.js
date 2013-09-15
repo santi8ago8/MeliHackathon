@@ -86,6 +86,7 @@ function sendEvent(req, eventName) {
     needle.get(finalUrl, {
         secureProtocol: "SSLv3_method"
     }, function (err, r) {
+        console.log(r.body);
         var userID;
         if (eventName == 'questions')
             userID = r.body.from.id;
