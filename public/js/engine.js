@@ -135,7 +135,7 @@ controllersMeli.allController = function ($scope, $rootScope) {
 };
 
 Meli.controller(controllersMeli);
-
+/*
 setInterval(function () {
     var elementos = $('.time');
 
@@ -145,3 +145,4 @@ setInterval(function () {
     });
 
 }, 1000);
+*/
