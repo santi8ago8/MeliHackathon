@@ -58,12 +58,7 @@ exports.loged = function (req, res) {
 exports.notif = function (req, res) {
     res.json({});
 
-    //  console.log(req.body);
 
-
-    if (req.body.topic == 'item') {
-        sendEvent(req, 'item');
-    }
     if (req.body.topic == 'orders') {
         sendEvent(req, 'orders');
     }
@@ -78,7 +73,7 @@ exports.notif = function (req, res) {
 function sendEvent(req, eventName) {
     console.log('sendig event', eventName);
     var socketToSend;
-
+    console.log()
     // io.sockets.clients().forEach(function (socket) {
     var token;
     var ss = req.sessionStore.sessions;
@@ -87,32 +82,34 @@ function sendEvent(req, eventName) {
         if (req.body.user_id == sd.idClient)
             token = sd.access_token;
     }
-    //  if (sd.idClient == socket.idClient && socket.idClient) {
-    //  console.log("match! :) cliente: " + socket.idClient, sd.id);
-    //socketToSend = socket;
+
     var url = "https://api.mercadolibre.com%s?access_token=%s"
     var finalUrl = util.format(url, req.body.resource, token);
 
     needle.get(finalUrl, {
         secureProtocol: "SSLv3_method"
     }, function (err, r) {
+        var userID;
+        if (eventName == 'question')
+            userID = r.body.from.id;
+        if (eventName == 'orders')
+            userID = r.body.buyer.id;
+
+        var itemID;
+        if (eventName == 'question')
+            itemID = r.body.item_id;
+        if (eventName == 'orders')
+            itemID = r.body.order_items[0].item_id;
+
+        console.log("Data ids: ", userID, itemID);
 
         var data = r.body;
         console.log(r.body);
         io.sockets.in(r.body.user_id).emit(eventName, r.body);
-        /* if (socketToSend) {
-         console.log("match! :) cliente: " + socketToSend.idClient);
-         console.log("send data " + req.body.resource);
-         socketToSend.emit(eventName, r.body);
-         }*/
+
 
     });
 
-    //   }
-
-    //}
-
-    // });
 }
 
 exports.test = function (a, b) {
