@@ -124,9 +124,7 @@ controllersMeli.allController = function ($scope, $rootScope) {
                 for (var i = 0; i < $rootScope.questions.length; i++) {
                     var obj = $rootScope.questions[i];
                     if (obj.info.id == resp.id) {
-                        console.log('Id delete: ',obj);
-                        $rootScope.questions.splice(i, 1);
-
+                        $rootScope.questions[i].isDelete=true
                     }
                 }
                 $rootScope.$apply();
