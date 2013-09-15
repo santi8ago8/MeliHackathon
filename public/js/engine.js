@@ -118,7 +118,7 @@ controllersMeli.allController = function ($scope, $rootScope) {
         $rootScope.$apply();
     });
     socket.on('orders', function (data) {
-
+        console.log("neworder", data);
         var idOrder = data.id;
         var entry = true;
         for (var i = 0; i < $rootScope.orders.length; i++) {
