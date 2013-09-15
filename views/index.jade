@@ -25,27 +25,27 @@ block content
         .span9(ng-controller='allController')
 
             //home
-            .homeCont.container.span11
+            .homeCont.container.span12
                 h2 Home
 
 
 
 
             //ventas
-            .ventasCont.container.span11(style='display:none')
+            .ventasCont.container.span12(style='display:none')
                 h2 Ventas
                 section.ventas
-                    article.ventaItem.item.row-fluid(ng-repeat="sell in orders | orderBy:'info.id':reverse=true",ng-hide='{{sell.isDelete}}')
+                    article.ventaItem.item(ng-repeat="sell in orders | orderBy:'info.id':reverse=true",ng-hide='{{sell.isDelete}}')
 
 
 
 
 
             //preguntas!
-            .preguntasCont.container.span11(style='display:none')
+            .preguntasCont.container.span12(style='display:none')
                 h2 Preguntas
                 section.preguntas
-                    article.questItem.item.row-fluid(ng-repeat="art in questions | orderBy:'info.id':reverse=true",ng-hide='{{art.isDelete}}')
+                    article.questItem.item(ng-repeat="art in questions | orderBy:'info.id':reverse=true",ng-hide='{{art.isDelete}}')
                         img.questItem.img-rounded(ng-src='{{art.item.thumbnail}}')
                         a(href='{{art.item.permalink}}')    {{art.item.title}}
                         a(href='{{art.user.permalink}}')  {{art.user.nickname}}
