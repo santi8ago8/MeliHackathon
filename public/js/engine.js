@@ -37,6 +37,9 @@ controllersMeli.navController = function ($scope) {
     };
     $('ul.nav li').on('click', cambiar);
     cambiar();
+    $scope.$on("changeNumbers", function (data) {
+        $scope.countquest = data;
+    })
 };
 
 controllersMeli.allController = function ($scope) {
@@ -68,7 +71,7 @@ controllersMeli.allController = function ($scope) {
                     $scope.questions.push(obj);
                     $scope.countquest++;
                 }
-                $scope.$apply();
+                $scope.$emit('changeNumbers', $scope.questions.length);
             },
             dataType: 'json'
         });
