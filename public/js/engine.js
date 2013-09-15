@@ -66,7 +66,7 @@ controllersMeli.allController = function ($scope) {
                     var obj = a[i];
                     $scope.questions.push(obj)
                 }
-                
+
             },
             dataType: 'json'
         });

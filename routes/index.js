@@ -145,15 +145,57 @@ io.sockets.on('connection', function (socket) {
 exports.getAllQuest = function (req, res) {
     needle.get(
         "https://api.mercadolibre.com/my/received_questions/search?access_token=" + req.session.access_token,
-        {secureProtocol: "SSLv3_method"},
+
         function (err, r) {
             var ret = [];
-            console.log(r.body);
+            var users = [];
+            var items = [];
             for (var i = 0; i < r.body.questions.length; i++) {
                 var obj = r.body.questions[i];
-                if (obj.status == 'UNANSWERED')
-                    ret.push(obj)
+                if (obj.status == 'UNANSWERED') {
+                    ret.push({info: obj});
+                    if (users.indexOf(obj.from.id) == -1)
+                        users.push(obj.from.id);
+                    if (items.indexOf(obj.item_id) == -1)
+                        items.push(obj.item_id);
+                }
+
+
             }
+            //get users data
+
+            needle.get('https://api.mercadolibre.com/users/' + users.join(),
+                {secureProtocol: "SSLv3_method"},
+                function (err, rUs) {
+                    for (var i = 0; i < rUs.body.length; i++) {
+                        var us = rUs.body[i];
+                        for (var j = 0; j < ret.length; j++) {
+                            var objRet = ret[j];
+                            if (objRet.info.from.id == us.id)
+                                objRet.user = us;
+                        }
+                    }
+
+                    //get items data
+
+                    needle.get('https://api.mercadolibre.com/items/' + items.join(),
+                        {secureProtocol: "SSLv3_method"},
+                        function (err, rIt) {
+                            for (var i = 0; i < rIt.length; i++) {
+                                var item = rIt[i];
+                                for (var j = 0; j < ret.length; j++) {
+                                    var objRet = ret[j];
+                                    if (objRet.info.item_id == item.id)
+                                        objRet.item = item;
+                                }
+                            }
+                        }
+                    )
+
+                }
+            );
+
+
             res.json(ret);
         }
     );
