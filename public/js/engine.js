@@ -8,19 +8,19 @@
 
 var Meli = angular.module('Meli', []);
 /*
-Meli.config(function ($locationProvider, $routeProvider) {
-    $routeProvider
-        .when('/', {
-            templateUrl: '/jade/home'
-        })
-        .when('/ventas', {
-            templateUrl: '/jade/ventas'
-        })
-        .when('/preguntas', {
-            templateUrl: '/jade/preguntas'
-        })
-        .otherwise({redirectTo: '/'})
-});*/
+ Meli.config(function ($locationProvider, $routeProvider) {
+ $routeProvider
+ .when('/', {
+ templateUrl: '/jade/home'
+ })
+ .when('/ventas', {
+ templateUrl: '/jade/ventas'
+ })
+ .when('/preguntas', {
+ templateUrl: '/jade/preguntas'
+ })
+ .otherwise({redirectTo: '/'})
+ });*/
 
 var controllersMeli = {};
 
@@ -31,7 +31,7 @@ controllersMeli.navController = function ($scope, $rootScope) {
     $rootScope.ventasplata = 0;
     $rootScope.countquest = 0;
     $rootScope.countorder = 0;
-    $rootScope.filterExpr='';
+    $rootScope.filterExpr = '';
 
     var cambiar = function (e) {
         if (e != undefined) {
@@ -90,7 +90,8 @@ controllersMeli.allController = function ($scope, $rootScope) {
                 for (var i = 0; i < a.length; i++) {
                     var obj = a[i];
                     $rootScope.orders.push(obj);
-                    $rootScope.countquest++;
+                    $rootScope.countorder++;
+                    $rootScope.ventasplata += obj.total_amount;
                 }
                 $rootScope.$apply();
             },
@@ -117,10 +118,22 @@ controllersMeli.allController = function ($scope, $rootScope) {
         $rootScope.$apply();
     });
     socket.on('orders', function (data) {
-        $rootScope.orders.push(data);
-        $rootScope.ventasplata += data.total_amount;
-        $rootScope.countorder++;
 
+        var idOrder = data.id;
+        var entry = true;
+        for (var i = 0; i < $rootScope.orders.length; i++) {
+            var obj = $rootScope.orders[i];
+            if (idOrder == obj.id)
+                entry = false;
+
+
+        }
+        if (entry) {
+
+            $rootScope.orders.push(data);
+            $rootScope.ventasplata += data.total_amount;
+            $rootScope.countorder++;
+        }
         //
 
 

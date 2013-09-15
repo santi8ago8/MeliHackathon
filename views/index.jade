@@ -12,7 +12,7 @@ block content
                         a(href='#').homeMenu Home
                     li
                         a(href='#/ventas').ventasMenu Ventas
-                            span.badge {{filtered.length}}
+                            span.badge {{orders.length}}
                     li
                         a.preguntasMenu(href='#/preguntas') Preguntas
                             span.badge  &#32; {{questions.length}}
@@ -23,6 +23,7 @@ block content
             h3 Vista rápida
             p(style='display:none').idClient #{code}
             p {{user.name}}
+            p Total ventas: $ {{ventasplata}}
         .span9(ng-controller='allController')
 
             //home
