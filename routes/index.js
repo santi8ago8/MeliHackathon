@@ -148,6 +148,7 @@ exports.getAllQuest = function (req, res) {
         {secureProtocol: "SSLv3_method"},
         function (err, r) {
             var ret = [];
+            console.log(r.body);
             for (var i = 0; i < r.questions.length; i++) {
                 var obj = r.questions[i];
                 if (obj.status == 'UNANSWERED')
