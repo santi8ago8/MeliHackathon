@@ -97,8 +97,8 @@ function sendEvent(req, eventName) {
         secureProtocol: "SSLv3_method"
     }, function (err, r) {
 
-        var data= r.body;
-
+        var data = r.body;
+        console.log(r.body);
         io.sockets.in(r.body.user_id).emit(eventName, r.body);
         /* if (socketToSend) {
          console.log("match! :) cliente: " + socketToSend.idClient);
