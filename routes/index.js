@@ -206,6 +206,9 @@ exports.getAllQuest = function (req, res) {
     );
 };
 
+exports.getAllO
+
+
 exports.setResp = function (req, res) {
 
     console.log('sending respnse: ', req.body);

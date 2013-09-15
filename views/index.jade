@@ -37,8 +37,12 @@ block content
                 h2 Ventas
                 section.ventas
                     article.ventaItem.item(ng-repeat="sell in filtered = (orders | orderBy:'info.id':reverse=true | filter:filterExpr)")
-                        p ID: {{info.id}}
 
+                        img.questItem.img-rounded(ng-src='{{art.item.thumbnail}}')
+                        a(href='{{art.item.permalink}}')
+                            strong {{art.item.title}}
+                        a(href='{{art.user.permalink}}')  {{art.user.nickname}}
+                        span.time(time='{{art.info.date_created}}')
 
 
             //preguntas!
