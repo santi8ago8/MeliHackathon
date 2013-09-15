@@ -23,10 +23,25 @@ block content
             p(style='display:none').idClient #{code}
             p {{user.name}}
         .span9(ng-controller='allController')
+
+            //home
             .homeCont.container.span11
                 h2 Home
+
+
+
+
+            //ventas
             .ventasCont.container.span11(style='display:none')
                 h2 Ventas
+                section.ventas
+                    article.ventaItem.item.row-fluid(ng-repeat="sell in orders | orderBy:'info.id':reverse=true",ng-hide='{{sell.isDelete}}')
+
+
+
+
+
+            //preguntas!
             .preguntasCont.container.span11(style='display:none')
                 h2 Preguntas
                 section.preguntas
