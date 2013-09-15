@@ -11,7 +11,7 @@ var Meli = angular.module('Meli', []);
 Meli.config(function ($locationProvider, $routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: '/jade/home',
+            templateUrl: '/jade/home'
         })
         .when('/ventas', {
             templateUrl: '/jade/ventas'
