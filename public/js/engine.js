@@ -47,23 +47,26 @@ controllersMeli.allController = function ($scope) {
     $scope.countquest = 0;
     $scope.countorder = 0;
 
-    $.ajax({
-        type: "GET",
-        url: "http://santi8ago8.kd.io:8080/getAllQuest",
-        success: function (a, b) {
-            console.log(a, b)
-        },
-        dataType: 'json'
-    });
 
-    if (idClient != '' && idClient != null && idClient)
+    if (idClient != '' && idClient != null && idClient) {
         socket.on('connect', function () {
             // Connected, let's sign-up for to receive messages for this room
             socket.emit('room', idClient);
         });
-    socket.emit('logged', {
-        idClient: idClient
-    });
+        socket.emit('logged', {
+            idClient: idClient
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "http://santi8ago8.kd.io:8080/getAllQuest",
+            success: function (a, b) {
+                console.log(a, b)
+            },
+            dataType: 'json'
+        });
+
+    }
     socket.on('questions', function (data) {
         $scope.questions.push(data);
         $scope.countquest++;
