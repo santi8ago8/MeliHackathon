@@ -125,6 +125,7 @@ controllersMeli.allController = function ($scope, $rootScope) {
                     var obj = $rootScope.questions[i];
                     if (obj.info.id == resp.id) {
                         obj.isDelete=true
+                        elem.remove();
                     }
                 }
                 $rootScope.$apply();
@@ -135,7 +136,7 @@ controllersMeli.allController = function ($scope, $rootScope) {
 };
 
 Meli.controller(controllersMeli);
-/*
+
 setInterval(function () {
     var elementos = $('.time');
 
@@ -145,4 +146,3 @@ setInterval(function () {
     });
 
 }, 1000);
-*/
