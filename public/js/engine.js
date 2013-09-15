@@ -40,17 +40,39 @@ controllersMeli.navController = function ($scope) {
 controllersMeli.allController = function ($scope) {
     var socket = io.connect('http://santi8ago8.kd.io:8081/');
     var idClient = $('.idClient').text();
+    $scope.questions = [];
+    $scope.orders = [];
+    $scope.ventasplata = 0;
+    $scope.countquest = 0;
+    $scope.countorder = 0;
     if (idClient != '' && idClient != null && idClient)
-        socket.on('connect', function() {
+        socket.on('connect', function () {
             // Connected, let's sign-up for to receive messages for this room
             socket.emit('room', idClient);
         });
-        socket.emit('logged', {
-            idClient: idClient
-        });
-    socket.on('questions', function (ms, data) {
-        console.log(ms, data);
+    socket.emit('logged', {
+        idClient: idClient
     });
+    socket.on('questions', function (data) {
+        $scope.questions.push(data);
+        $scope.countquest++;
+
+        //
+
+
+        $scope.$apply();
+    });
+    socket.on('orders', function (data) {
+        $scope.orders.push(data);
+        $scope.ventasplata += data.total_amount;
+        $scope.countorder++;
+
+        //
+
+
+        $scope.$apply();
+    });
+
     socket.on('test', function (d) {
         console.log(d)
     });
