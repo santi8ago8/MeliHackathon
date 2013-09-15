@@ -54,11 +54,10 @@ exports.loged = function (req, res) {
     );
 };
 
-
 exports.notif = function (req, res) {
     res.json({});
 
-
+    console.log("new Notification: " + req.body.resource);
     if (req.body.topic == 'orders') {
         sendEvent(req, 'orders');
     }
@@ -104,20 +103,15 @@ function sendEvent(req, eventName) {
 
         needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
             function (err, rItem) {
-                data.item=rItem.body;
+                data.item = rItem.body;
                 needle.get("https://api.mercadolibre.com/users/" + userID, {secureProtocol: "SSLv3_method"},
                     function (err, rUser) {
-                        data.user=rUser.body;
+                        data.user = rUser.body;
                         io.sockets.in(r.body.user_id).emit(eventName, data);
                     }
                 );
             }
         );
-
-
-
-
-
 
 
     });
