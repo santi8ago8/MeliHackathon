@@ -79,23 +79,31 @@ function sendEvent(req, eventName) {
     console.log('sendig event', eventName);
     var socketToSend;
     io.sockets.clients().forEach(function (socket) {
-        console.log("cliente: " + socket.idClient);
-        if (req.session.idClient == socket.idClient && socket.idClient) {
-            socketToSend = socket;
-            var url = "https://api.mercadolibre.com/%s?access_token=%s"
-            var finalUrl = util.format(url, req.body.resource, req.session.access_token);
-            needle.get(finalUrl, {
-                secureProtocol: "SSLv3_method"
-            }, function (err, r) {
 
-                if (socketToSend) {
+        var ss = sessionStore.sessions;
+        for (var s in ss) {
+            var sd = JSON.parse(ss[s]);
 
-                    socketToSend.emit(eventName, r.body);
-                }
+            if (sd.idClient == socket.idClient && socket.idClient) {
+                console.log("match! :) cliente: " + socket.idClient);
+                socketToSend = socket;
+                var url = "https://api.mercadolibre.com/%s?access_token=%s"
+                var finalUrl = util.format(url, req.body.resource, req.session.access_token);
+                needle.get(finalUrl, {
+                    secureProtocol: "SSLv3_method"
+                }, function (err, r) {
 
-            });
+                    if (socketToSend) {
+                        console.log("send data " + req.body.resource);
+                        socketToSend.emit(eventName, r.body);
+                    }
+
+                });
+
+            }
 
         }
+
     });
 }
 
