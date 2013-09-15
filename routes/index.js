@@ -208,7 +208,7 @@ exports.getAllQuest = function (req, res) {
 
 exports.getAllOrders = function (req, res) {
     needle.get(
-        'https://api.mercadolibre.com/orders/search/recent/?seller=' + req.session.idClient + "&access_token=" + req.sessid.access_token,
+        'https://api.mercadolibre.com/orders/search/recent/?seller=' + req.session.idClient + "&access_token=" + req.session.access_token,
         {secureProtocol: "SSLv3_method"},
         function (a, rOrder) {
             console.log(rOrder.body);
