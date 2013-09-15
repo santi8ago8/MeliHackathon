@@ -78,6 +78,11 @@ controllersMeli.allController = function ($scope) {
         console.log(d)
     });
 
+    //guardar preguntas
+    $scope.sendResp=function(resp){
+        console.log(resp);
+    }
+
 };
 
 Meli.controller(controllersMeli);
@@ -87,7 +92,7 @@ setInterval(function () {
 
     $.each(elementos, function (index, elem) {
         var t = $(elem).attr('time');
-        $(elem).text(moment(t).fromNow());
+        $(elem).text(" "+moment(t).fromNow());
     });
 
 }, 1000);
