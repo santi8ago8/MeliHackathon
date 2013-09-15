@@ -72,9 +72,8 @@ exports.notif = function (req, res) {
 
 function sendEvent(req, eventName) {
     console.log('sendig event', eventName);
-    var socketToSend;
-    console.log()
-    // io.sockets.clients().forEach(function (socket) {
+
+
     var token;
     var ss = req.sessionStore.sessions;
     for (var s in ss) {
@@ -82,7 +81,6 @@ function sendEvent(req, eventName) {
         if (req.body.user_id == sd.idClient)
             token = sd.access_token;
     }
-
     var url = "https://api.mercadolibre.com%s?access_token=%s"
     var finalUrl = util.format(url, req.body.resource, token);
 
@@ -99,13 +97,27 @@ function sendEvent(req, eventName) {
         if (eventName == 'questions')
             itemID = r.body.item_id;
         if (eventName == 'orders')
-            itemID = r.body.order_items[0].item.item_id;
+            itemID = r.body.order_items[0].item.id;
 
-        console.log("Data ids: ", userID, itemID);
 
         var data = r.body;
-        console.log(r.body.order_items);
-        io.sockets.in(r.body.user_id).emit(eventName, r.body);
+
+        needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
+            function (err, rItem) {
+                data.item=rItem.body;
+                needle.get("https://api.mercadolibre.com/users/" + userID, {secureProtocol: "SSLv3_method"},
+                    function (err, rUser) {
+                        data.user=rUser.body;
+                        io.sockets.in(r.body.user_id).emit(eventName, data);
+                    }
+                );
+            }
+        );
+
+
+
+
+
 
 
     });
