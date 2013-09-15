@@ -135,7 +135,7 @@ var io = require('socket.io').listen(8081, {log: false});
 
 io.sockets.on('connection', function (socket) {
     socket.on('logged', function (data) {
-        socket.idClient = data.idClient;
+      //  socket.idClient = data.idClient;
     });
     socket.on('room', function (room) {
         socket.join(room);

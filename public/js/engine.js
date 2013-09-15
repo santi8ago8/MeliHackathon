@@ -61,10 +61,11 @@ controllersMeli.allController = function ($scope) {
             type: "GET",
             url: "http://santi8ago8.kd.io:8080/getAllQuest",
             success: function (a, b) {
-                console.log(a, b)
+                console.log(a, b);
                 for (var i = 0; i < a.length; i++) {
                     var obj = a[i];
-                    $scope.questions.push(obj)
+                    $scope.questions.push(obj);
+                    $scope.countquest++;
                 }
                 $scope.$apply();
             },
