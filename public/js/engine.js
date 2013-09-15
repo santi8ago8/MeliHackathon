@@ -117,9 +117,10 @@ controllersMeli.allController = function ($scope) {
                 },
                 dataType: 'json'
             });
+            while (!elem.is('.questItem')) elem = $(elem.parent());
+            elem.hide(400);
         }
-        while (!elem.is('.questItem')) elem = $(elem.parent());
-        elem.hide(400);
+
     }
 
 };
