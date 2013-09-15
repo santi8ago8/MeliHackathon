@@ -113,7 +113,7 @@ function sendEvent(req, eventName) {
                     function (err, rUser) {
                         data.user = rUser.body;
                         console.log(data);
-                        io.sockets.in(r.body.user_id).emit(eventName, data);
+                        io.sockets.in(data.user_id).emit(eventName, data);
                     }
                 );
             }
