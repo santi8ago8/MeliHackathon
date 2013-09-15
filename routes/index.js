@@ -39,7 +39,7 @@ exports.loged = function (req, res) {
                 secureProtocol: "SSLv3_method"
             }, function (err, r) {
                 req.session.id = r.body.id;
-
+                console.log(r.body.id);
                 res.redirect('/');
 
             });
