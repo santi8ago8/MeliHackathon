@@ -181,7 +181,7 @@ exports.getAllQuest = function (req, res) {
 
                     //get items data
 
-                    needle.get('https://api.mercadolibre.com/items/' + items.join(),
+                    needle.get('https://api.mercadolibre.com/items?ids=' + items.join(),
                         {secureProtocol: "SSLv3_method"},
                         function (err, rIt) {
                             console.log('its ', rIt.body);
