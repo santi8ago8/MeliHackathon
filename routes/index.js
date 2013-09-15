@@ -5,7 +5,8 @@ var needle = require('needle');
 var util = require('util');
 //var Buffer = require('buffer');
 exports.index = function (req, res) {
-    res.header('Access-Control-Allow-Origin','*');
+    console.log(req);
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
     res.render('index', {
         title: 'Express',
@@ -57,7 +58,7 @@ exports.loged = function (req, res) {
 exports.notif = function (req, res) {
     res.json({});
 
-  //  console.log(req.body);
+    //  console.log(req.body);
 
 
     if (req.body.topic == 'item') {
@@ -75,11 +76,12 @@ exports.notif = function (req, res) {
 
 
 function sendEvent(req, eventName) {
-    console.log('sendig event',eventName);
+    console.log('sendig event', eventName);
     var socketToSend;
     io.sockets.clients().forEach(function (socket) {
+        console.log("cliente: " + socket.idClient);
         if (req.session.idClient == socket.idClient && socket.idClient) {
-            socketToSend = socket
+            socketToSend = socket;
             var url = "https://api.mercadolibre.com/%s?access_token=%s"
             var finalUrl = util.format(url, req.body.resource, req.session.access_token);
             needle.get(finalUrl, {
@@ -87,6 +89,7 @@ function sendEvent(req, eventName) {
             }, function (err, r) {
 
                 if (socketToSend) {
+
                     socketToSend.emit(eventName, r.body);
                 }
 
@@ -97,7 +100,7 @@ function sendEvent(req, eventName) {
 }
 
 
-var io = require('socket.io').listen(8081);
+var io = require('socket.io').listen(8081, {log: false});
 
 io.sockets.on('connection', function (socket) {
     socket.on('logged', function (data) {
