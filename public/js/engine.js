@@ -128,6 +128,7 @@ controllersMeli.allController = function ($scope,$rootScope) {
                     $rootScope.questions.splice(obj,1);
                 }
             }
+            $rootScope.$apply();
         }
 
     }
