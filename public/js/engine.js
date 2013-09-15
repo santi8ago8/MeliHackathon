@@ -128,7 +128,6 @@ controllersMeli.allController = function ($scope, $rootScope) {
                     }
                 }
                 $rootScope.$apply();
-                $scope.$apply();
             });
 
         }
