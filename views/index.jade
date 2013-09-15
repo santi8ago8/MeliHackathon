@@ -25,9 +25,9 @@ block content
         .span9(ng-controller='allController')
             .homeCont.container
                 h2 Home
-            .ventasCont.container
+            .ventasCont.container(style='display:none')
                 h2 Ventas
-            .preguntasCont.container
+            .preguntasCont.container(style='display:none')
                 h2 Preguntas
                 section.preguntas
                     article.questItem.item.row-fluid(ng-repeat="art in questions | orderBy:'info.id':reverse=true",ng-hide='{{art.isDelete}}')

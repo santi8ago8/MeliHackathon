@@ -44,7 +44,7 @@ controllersMeli.navController = function ($scope, $rootScope) {
             if (select.is('.homeMenu'))
                 $('.homeCont').show();
             if (select.is('.ventasMenu'))
-                $('.preguntasCont').show();
+                $('.ventasCont').show();
 
         }
 
