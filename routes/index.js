@@ -77,7 +77,7 @@ exports.notif = function (req, res) {
 
 function sendEvent(req, eventName) {
     console.log('sendig event', eventName);
-    var idClient;
+    var socketToSend;
     io.sockets.clients().forEach(function (socket) {
 
         var ss = req.sessionStore.sessions;
@@ -86,21 +86,18 @@ function sendEvent(req, eventName) {
 
             if (sd.idClient == socket.idClient && socket.idClient) {
                 console.log("match! :) cliente: " + socket.idClient, sd.id);
-                idClient = socket.idClient;
+                socketToSend = socket;
                 var url = "https://api.mercadolibre.com/%s?access_token=%s"
                 var finalUrl = util.format(url, req.body.resource, req.session.access_token);
                 needle.get(finalUrl, {
                     secureProtocol: "SSLv3_method"
                 }, function (err, r) {
-                    io.sockets.emit(eventName, r.body);
 
-                    /* if (socketToSend.length > 0) {
-                     for (var i = 0; i < socketToSend.length; i++) {
-                     console.log("match! :) cliente: " + socketToSend[i].idClient);
-                     console.log("send data " + req.body.resource);
-                     // socketToSend.emit(eventName, r.body);
-                     }*/
-                    //}
+                    if (socketToSend) {
+                        console.log("match! :) cliente: " + socketToSend.idClient);
+                        console.log("send data " + req.body.resource);
+                        socketToSend.emit(eventName, r.body);
+                    }
 
                 });
 
