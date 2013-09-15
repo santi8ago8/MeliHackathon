@@ -62,6 +62,7 @@ controllersMeli.allController = function ($scope) {
             url: "http://santi8ago8.kd.io:8080/getAllQuest",
             success: function (a, b) {
                 console.log(a, b)
+                $scope.questions.push(a);
             },
             dataType: 'json'
         });
