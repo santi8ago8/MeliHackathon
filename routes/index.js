@@ -8,7 +8,7 @@ exports.index = function (req, res) {
     res.render('index', {
         title: 'Express',
         isLogin: req.session.isLogin,
-        code: req.session.code ? req.session.id : 'codigo'
+        code: req.session.id ? req.session.id : ''
     });
 };
 
