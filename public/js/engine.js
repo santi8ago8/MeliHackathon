@@ -76,9 +76,19 @@ controllersMeli.allController = function ($scope, $rootScope) {
 
     }
     socket.on('questions', function (data) {
-        $rootScope.questions.push(data);
-        $rootScope.countquest++;
 
+        var idQuest = data.info.id;
+        var entry = true;
+        for (var i = 0; i < $rootScope.questions.length; i++) {
+            var obj = $rootScope.questions[i];
+            if (idQuest == obj.info.id) {
+                entry = false;
+            }
+        }
+        if (entry) {
+            $rootScope.questions.push(data);
+            $rootScope.countquest++;
+        }
         //
 
 
@@ -120,15 +130,14 @@ controllersMeli.allController = function ($scope, $rootScope) {
                 dataType: 'json'
             });
             while (!elem.is('.questItem')) elem = $(elem.parent());
-            elem.hide(400,function(){
+            elem.hide(400, function () {
                 for (var i = 0; i < $rootScope.questions.length; i++) {
                     var obj = $rootScope.questions[i];
                     if (obj.info.id == resp.id) {
-                        obj.isDelete=true
+                        obj.isDelete = true;
                         elem.remove();
                     }
                 }
-                $rootScope.$apply();
             });
 
         }
