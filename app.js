@@ -32,7 +32,8 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/jade/:name', routes.getJade);
-app.get('/login',routes.loged);
+app.get('/login', routes.loged);
+app.post('/notif', routes.notif);
 
 
 http.createServer(app).listen(app.get('port'), function () {
