@@ -149,8 +149,8 @@ exports.getAllQuest = function (req, res) {
         function (err, r) {
             var ret = [];
             console.log(r.body);
-            for (var i = 0; i < r.questions.length; i++) {
-                var obj = r.questions[i];
+            for (var i = 0; i < r.body.questions.length; i++) {
+                var obj = r.body.questions[i];
                 if (obj.status == 'UNANSWERED')
                     ret.push(obj)
             }
