@@ -146,16 +146,14 @@ io.sockets.on('connection', function (socket) {
 exports.setResp = function (req, res) {
 
     console.log('sending respnse: ', req.body);
+    var data = {
+        question_id: req.body.id,
+        text: req.body.text
+    };
+    console.log(data);
     needle.post(
         'https://api.mercadolibre.com/answers?access_token=' + req.body.access_token,  // + req.body.id+"/answers/",
-        {
-
-            question_id: req.body.id,
-
-            //date_created: req.body.time,
-            /// status: 'active',
-            text: req.body.text
-        },
+        data,
         {secureProtocol: "SSLv3_method"}, function (a, b) {
             console.log(a, b.body);
         }
