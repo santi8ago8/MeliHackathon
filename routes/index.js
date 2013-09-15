@@ -154,6 +154,7 @@ exports.getAllQuest = function (req, res) {
                 if (obj.status == 'UNANSWERED')
                     ret.push(obj)
             }
+            res.json(ret);
         }
     );
 };
