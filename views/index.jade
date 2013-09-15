@@ -9,11 +9,11 @@ block content
                     a.brand.text-error(href="https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=4416176012263899&redirect_uri=http://santi8ago8.kd.io:8080/login") Login
                 ul.nav
                     li.active
-                        a(href='#') Home
+                        a(href='#').homeMenu Home
                     li
-                        a(href='#/ventas') Ventas
+                        a(href='#/ventas').ventasMenu Ventas
                     li
-                        a(href='#/preguntas') Preguntas
+                        a.preguntasMenu(href='#/preguntas') Preguntas
                             span.badge  {{questions.length}}
 
     .row-fluid
@@ -23,5 +23,22 @@ block content
             p(style='display:none').idClient #{code}
             p {{user.name}}
         .span9(ng-view,ng-controller='allController')
-            h1= title
-            p Welcome to #{title}
+            .homeCont.container
+                h2 Home
+            .ventasCont.container
+                h2 Ventas
+            .preguntasCont.container
+                h2 Preguntas
+                section.preguntas
+                    article.questItem.item.row-fluid(ng-repeat="art in questions | orderBy:'info.id':reverse=true",ng-hide='{{art.isDelete}}')
+                        img.questItem.img-rounded(ng-src='{{art.item.thumbnail}}')
+                        a(href='{{art.item.permalink}}')    {{art.item.title}}
+                        a(href='{{art.user.permalink}}')  {{art.user.nickname}}
+                        span.time(time='{{art.info.date_created}}')
+                        p.leap Pregunta: {{art.info.text}}
+                        .clear
+                        form.response.row-fluid()
+                            .span12
+                                textarea.span12(idquest='{{art.info.id}}',ng-model='resp.text')
+                            .span4
+                                button.span12(type='submit',ng-click='sendResp(resp)') Responder
