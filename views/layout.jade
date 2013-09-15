@@ -2,9 +2,12 @@ doctype 5
 html(ng-app='Meli')
     head
         title= title
-        //meta(name="viewport",content="width=device-width, initial-scale=1.0")
+        meta(name="viewport",content="width=device-width, initial-scale=1.0")
         link(rel='stylesheet', href='/css/bootstrap.css')
         link(rel='stylesheet', href='/css/style.css')
 
     body
         block content
+        script(src='/js/jquery-1.10.2.js')
+        script(src='/js/angular.js')
+        script(src='/js/engine.js')
