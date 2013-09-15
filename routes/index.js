@@ -93,7 +93,7 @@ function sendEvent(req, eventName) {
                 needle.get(finalUrl, {
                     secureProtocol: "SSLv3_method"
                 }, function (err, r) {
-                    console.log(r.body);
+                    console.log(err,r);
 
                     if (socketToSend) {
                         console.log("match! :) cliente: " + socketToSend.idClient);
