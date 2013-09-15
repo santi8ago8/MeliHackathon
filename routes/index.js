@@ -105,15 +105,15 @@ function sendEvent(req, eventName) {
 
             data.info = r.body;
 
-            console.log(data);
+           // console.log(data);
             needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
                 function (err, rItem) {
                     data.item = rItem.body;
-                    console.log(data);
+                   // console.log(data);
                     needle.get("https://api.mercadolibre.com/users/" + userID, {secureProtocol: "SSLv3_method"},
                         function (err, rUser) {
                             data.user = rUser.body;
-                            console.log(data);
+                          //  console.log(data);
                             io.sockets.in(data.user_id).emit(eventName, data);
                         }
                     );
@@ -135,7 +135,7 @@ var io = require('socket.io').listen(8081, {log: false});
 
 io.sockets.on('connection', function (socket) {
     socket.on('logged', function (data) {
-      //  socket.idClient = data.idClient;
+        //  socket.idClient = data.idClient;
     });
     socket.on('room', function (room) {
         socket.join(room);
@@ -184,7 +184,7 @@ exports.getAllQuest = function (req, res) {
                     needle.get('https://api.mercadolibre.com/items?ids=' + items.join(),
                         {secureProtocol: "SSLv3_method"},
                         function (err, rIt) {
-                            console.log('its ', rIt.body);
+                            //console.log('its ', rIt.body);
                             if (!Array.isArray(rIt.body))
                                 rIt.body = [rIt.body];
                             for (var i = 0; i < rIt.body.length; i++) {
@@ -206,7 +206,17 @@ exports.getAllQuest = function (req, res) {
     );
 };
 
-exports.getAllO
+exports.getAllOrders = function (req, res) {
+    needle.get(
+        'https://api.mercadolibre.com/orders/search/recent/?seller=' + req.session.idClient + "&access_token=" + req.sessid.access_token,
+        {secureProtocol: "SSLv3_method"},
+        function (a, rOrder) {
+            console.log(rOrder.body);
+        }
+
+    )
+
+};
 
 
 exports.setResp = function (req, res) {

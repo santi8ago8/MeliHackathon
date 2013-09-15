@@ -82,7 +82,20 @@ controllersMeli.allController = function ($scope, $rootScope) {
             },
             dataType: 'json'
         });
-
+        $.ajax({
+            type: "GET",
+            url: "http://santi8ago8.kd.io:8080/getAllOrders",
+            success: function (a, b) {
+                console.log(a, b);
+                for (var i = 0; i < a.length; i++) {
+                    var obj = a[i];
+                    $rootScope.orders.push(obj);
+                    $rootScope.countquest++;
+                }
+                $rootScope.$apply();
+            },
+            dataType: 'json'
+        });
     }
     socket.on('questions', function (data) {
 

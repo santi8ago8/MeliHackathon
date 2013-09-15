@@ -35,9 +35,9 @@ app.get('/jade/:name', routes.getJade);
 app.get('/login', routes.loged);
 app.post('/notif', routes.notif);
 app.get('/test', routes.test);
-app.post('/setResp',routes.setResp);
-app.get('/getAllQuest',routes.getAllQuest);
-
+app.post('/setResp', routes.setResp);
+app.get('/getAllQuest', routes.getAllQuest);
+app.get('/getAllOrders', routes.getAllOrders);
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
