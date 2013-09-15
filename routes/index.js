@@ -237,8 +237,9 @@ exports.getAllOrders = function (req, res) {
                                 result[j].item = item;
                         }
 
-                        res.json(result);
+
                     }
+                    res.json(result);
                 }
             );
 
