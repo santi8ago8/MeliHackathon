@@ -24,7 +24,7 @@ Meli.config(function ($locationProvider, $routeProvider) {
 
 var controllersMeli = {};
 
-controllersMeli.navController = function ($scope,$rootScope) {
+controllersMeli.navController = function ($scope, $rootScope) {
 
     $rootScope.questions = [];
     $rootScope.orders = [];
@@ -45,10 +45,9 @@ controllersMeli.navController = function ($scope,$rootScope) {
     cambiar();
 };
 
-controllersMeli.allController = function ($scope,$rootScope) {
+controllersMeli.allController = function ($scope, $rootScope) {
     var socket = io.connect('http://santi8ago8.kd.io:8081/');
     var idClient = $('.idClient').text();
-
 
 
     if (idClient != '' && idClient != null && idClient) {
@@ -124,10 +123,12 @@ controllersMeli.allController = function ($scope,$rootScope) {
             elem.hide(400);
             for (var i = 0; i < $rootScope.questions.length; i++) {
                 var obj = $rootScope.questions[i];
-                if (obj.info.id==resp.id){
-                    $rootScope.questions.splice(obj,1);
+                if (obj.info.id == resp.id) {
+                    $rootScope.questions.splice(obj, 1);
                 }
             }
+            $rootScope.$apply();
+            $scope.$apply();
         }
 
     }
