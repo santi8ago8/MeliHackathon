@@ -35,6 +35,11 @@ exports.loged = function (req, res) {
                 req.session.isLogin = true;
                 req.session.access_token = b.body.access_token;
             }
+            needle.get('https://api.mercadolibre.com/users/me?access_token=' + req.session.access_token, {
+                secureProtocol: "SSLv3_method"
+            }, function (err, res) {
+                console.log(res.body);
+            });
             res.redirect('/');
         }
 
@@ -44,15 +49,14 @@ exports.loged = function (req, res) {
 };
 
 
-
-exports.getJade = function (req, res) {
-    res.render(req.params.name);
-};
-
-exports.notif=function(req,res){
+exports.notif = function (req, res) {
     res.json({});
 
     console.log(req.body);
+};
+
+exports.getJade = function (req, res) {
+    res.render(req.params.name);
 };
 
 var io = require('socket.io').listen(80801);
