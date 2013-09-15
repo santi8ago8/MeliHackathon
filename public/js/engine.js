@@ -71,6 +71,7 @@ controllersMeli.allController = function ($scope) {
                     $scope.questions.push(obj);
                     $scope.countquest++;
                 }
+                $scope.$apply();
                 $scope.$emit('changeNumbers', $scope.questions.length);
             },
             dataType: 'json'
