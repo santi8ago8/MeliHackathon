@@ -81,7 +81,7 @@ controllersMeli.allController = function ($scope) {
     //guardar preguntas
     $scope.sendResp = function (resp) {
         var elem = $(event.target);
-        while (!elem.is('form')) elem = $(elem.parent);
+        while (!elem.is('form')) elem = $(elem.parent());
 
         if (elem.find('textarea').val() != '') {
             resp = {

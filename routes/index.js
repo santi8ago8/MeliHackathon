@@ -147,7 +147,7 @@ exports.setResp = function (req, res) {
 
     console.log('sending respnse: ', req.body);
     needle.post(
-        'https://api.mercadolibre.com/answers/' + req.body.id,
+        'https://api.mercadolibre.com/questions/' + req.body.id+"/answers/",
         {
             date_created: req.body.time,
             status: 'active',
