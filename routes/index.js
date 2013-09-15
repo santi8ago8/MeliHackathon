@@ -8,7 +8,7 @@ exports.index = function (req, res) {
     res.render('index', {
         title: 'Express',
         isLogin: req.session.isLogin,
-        code: req.session.code ? req.session.code : 'codigo'
+        code: req.session.code ? req.session.id : 'codigo'
     });
 };
 
@@ -37,10 +37,13 @@ exports.loged = function (req, res) {
             }
             needle.get('https://api.mercadolibre.com/users/me?access_token=' + req.session.access_token, {
                 secureProtocol: "SSLv3_method"
-            }, function (err, res) {
-                console.log(res.body);
+            }, function (err, r) {
+                req.session.id = r.body.id;
+
+                res.redirect('/');
+
             });
-            res.redirect('/');
+
         }
 
     );
