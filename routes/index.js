@@ -104,7 +104,7 @@ function sendEvent(req, eventName) {
         console.log("Data ids: ", userID, itemID);
 
         var data = r.body;
-        console.log(r.body);
+        console.log(r.body.order_items);
         io.sockets.in(r.body.user_id).emit(eventName, r.body);
 
 
