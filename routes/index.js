@@ -155,7 +155,7 @@ exports.setResp = function (req, res) {
     console.log(data);
     needle.post(
         url,
-        data,
+        JSON.stringify(data),
         {secureProtocol: "SSLv3_method",
         headers:{
             "Content-Type": "application/json"
