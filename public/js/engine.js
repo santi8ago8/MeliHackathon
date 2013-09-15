@@ -38,7 +38,7 @@ controllersMeli.navController = function ($scope,$rootScope) {
             var select = $(e.target);
             $('.nav li').removeClass('active');
             select.parent().addClass('active');
-            $rootScope.$apply()
+
         }
     };
     $('ul.nav li').on('click', cambiar);
