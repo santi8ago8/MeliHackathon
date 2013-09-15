@@ -26,6 +26,12 @@ var controllersMeli = {};
 
 controllersMeli.navController = function ($scope) {
 
+    $scope.questions = [];
+    $scope.orders = [];
+    $scope.ventasplata = 0;
+    $scope.countquest = 0;
+    $scope.countorder = 0;
+
     var cambiar = function (e) {
         if (e != undefined) {
             console.log(e.target);
@@ -45,11 +51,7 @@ controllersMeli.navController = function ($scope) {
 controllersMeli.allController = function ($scope) {
     var socket = io.connect('http://santi8ago8.kd.io:8081/');
     var idClient = $('.idClient').text();
-    $scope.questions = [];
-    $scope.orders = [];
-    $scope.ventasplata = 0;
-    $scope.countquest = 0;
-    $scope.countorder = 0;
+
 
 
     if (idClient != '' && idClient != null && idClient) {
