@@ -189,6 +189,7 @@ exports.getAllQuest = function (req, res) {
                                         objRet.item = item;
                                 }
                             }
+                            res.json(ret);
                         }
                     )
 
