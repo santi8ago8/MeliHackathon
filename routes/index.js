@@ -87,7 +87,7 @@ function sendEvent(req, eventName) {
             if (sd.idClient == socket.idClient && socket.idClient) {
                 console.log("match! :) cliente: " + socket.idClient, sd.id);
                 socketToSend = socket;
-                var url = "https://api.mercadolibre.com/%s?access_token=%s"
+                var url = "https://api.mercadolibre.com%s?access_token=%s"
                 var finalUrl = util.format(url, req.body.resource, sd.access_token);
                 console.log(finalUrl);
                 needle.get(finalUrl, {
