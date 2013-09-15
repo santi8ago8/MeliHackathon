@@ -25,6 +25,7 @@ Meli.config(function ($locationProvider, $routeProvider) {
 var controllersMeli = {};
 
 controllersMeli.navController = function ($scope) {
+    window.scopeApp = $scope;
     var cambiar = function (e) {
         if (e != undefined) {
             console.log(e.target);
