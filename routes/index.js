@@ -153,7 +153,7 @@ exports.getAllQuest = function (req, res) {
             for (var i = 0; i < r.body.questions.length; i++) {
                 var obj = r.body.questions[i];
                 if (obj.status == 'UNANSWERED') {
-                    ret.push({info: obj});
+                    ret.push({info: obj, user: undefined, item: undefined});
                     if (users.indexOf(obj.from.id) == -1)
                         users.push(obj.from.id);
                     if (items.indexOf(obj.item_id) == -1)
@@ -196,8 +196,6 @@ exports.getAllQuest = function (req, res) {
                 }
             );
 
-
-            res.json(ret);
         }
     );
 };
