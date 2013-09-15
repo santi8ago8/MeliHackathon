@@ -158,7 +158,7 @@ exports.setResp = function (req, res) {
         data,
         //{secureProtocol: "SSLv3_method"},
         function (a, b) {
-            console.log(a, b.body);
+            console.log(a, b);
         }
     );
 
