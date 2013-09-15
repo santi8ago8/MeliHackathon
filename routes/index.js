@@ -89,9 +89,11 @@ function sendEvent(req, eventName) {
                 socketToSend = socket;
                 var url = "https://api.mercadolibre.com/%s?access_token=%s"
                 var finalUrl = util.format(url, req.body.resource, req.session.access_token);
+                console.log(finalUrl);
                 needle.get(finalUrl, {
                     secureProtocol: "SSLv3_method"
                 }, function (err, r) {
+                    console.log(r.body);
 
                     if (socketToSend) {
                         console.log("match! :) cliente: " + socketToSend.idClient);
