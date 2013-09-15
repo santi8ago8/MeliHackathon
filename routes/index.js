@@ -99,7 +99,7 @@ function sendEvent(req, eventName) {
         if (eventName == 'questions')
             itemID = r.body.item_id;
         if (eventName == 'orders')
-            itemID = r.body.order_items[0].item_id;
+            itemID = r.body.order_items[0].item.item_id;
 
         console.log("Data ids: ", userID, itemID);
 
