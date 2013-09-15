@@ -78,36 +78,37 @@ exports.notif = function (req, res) {
 function sendEvent(req, eventName) {
     console.log('sendig event', eventName);
     var socketToSend;
-    io.sockets.clients().forEach(function (socket) {
 
-        var ss = req.sessionStore.sessions;
-        for (var s in ss) {
-            var sd = JSON.parse(ss[s]);
+    // io.sockets.clients().forEach(function (socket) {
 
-            if (sd.idClient == socket.idClient && socket.idClient) {
-                console.log("match! :) cliente: " + socket.idClient, sd.id);
-                socketToSend = socket;
-                var url = "https://api.mercadolibre.com%s?access_token=%s"
-                var finalUrl = util.format(url, req.body.resource, sd.access_token);
-                console.log(finalUrl);
-                needle.get(finalUrl, {
-                    secureProtocol: "SSLv3_method"
-                }, function (err, r) {
-                    console.log(err,r);
+    //  var ss = req.sessionStore.sessions;
+    //  for (var s in ss) {
+    //     var sd = JSON.parse(ss[s]);
 
-                    if (socketToSend) {
-                        console.log("match! :) cliente: " + socketToSend.idClient);
-                        console.log("send data " + req.body.resource);
-                        socketToSend.emit(eventName, r.body);
-                    }
-
-                });
-
-            }
-
-        }
+    //  if (sd.idClient == socket.idClient && socket.idClient) {
+    //  console.log("match! :) cliente: " + socket.idClient, sd.id);
+    socketToSend = socket;
+    var url = "https://api.mercadolibre.com%s?access_token=%s"
+    var finalUrl = util.format(url, req.body.resource, sd.access_token);
+    console.log(finalUrl);
+    needle.get(finalUrl, {
+        secureProtocol: "SSLv3_method"
+    }, function (err, r) {
+        console.log(err, r);
+        io.sockets.in(r.body.user_id).emit(eventName, r.body);
+        /* if (socketToSend) {
+         console.log("match! :) cliente: " + socketToSend.idClient);
+         console.log("send data " + req.body.resource);
+         socketToSend.emit(eventName, r.body);
+         }*/
 
     });
+
+    //   }
+
+    //}
+
+    // });
 }
 
 exports.test = function (a, b) {
@@ -119,5 +120,8 @@ var io = require('socket.io').listen(8081, {log: false});
 io.sockets.on('connection', function (socket) {
     socket.on('logged', function (data) {
         socket.idClient = data.idClient;
+    });
+    socket.on('room', function (room) {
+        socket.join(room);
     });
 });

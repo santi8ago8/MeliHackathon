@@ -41,6 +41,10 @@ controllersMeli.allController = function ($scope) {
     var socket = io.connect('http://santi8ago8.kd.io:8081/');
     var idClient = $('.idClient').text();
     if (idClient != '' && idClient != null && idClient)
+        socket.on('connect', function() {
+            // Connected, let's sign-up for to receive messages for this room
+            socket.emit('room', room);
+        });
         socket.emit('logged', {
             idClient: idClient
         });
