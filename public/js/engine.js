@@ -44,8 +44,11 @@ controllersMeli.allController = function ($scope) {
         socket.emit('logged', {
             idClient: idClient
         });
-    socket.on('question', function (ms,data) {
-        console.log(ms,data);
+    socket.on('question', function (ms, data) {
+        console.log(ms, data);
+    });
+    socket.on('test', function (d) {
+        console.log(d)
     });
 
 };
