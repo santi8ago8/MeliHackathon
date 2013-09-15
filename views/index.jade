@@ -12,6 +12,7 @@ block content
                         a(href='#').homeMenu Home
                     li
                         a(href='#/ventas').ventasMenu Ventas
+                            span.badge {{filtered.length}}
                     li
                         a.preguntasMenu(href='#/preguntas') Preguntas
                             span.badge  &#32; {{questions.length}}
@@ -35,9 +36,8 @@ block content
             .ventasCont.container.span12(style='display:none')
                 h2 Ventas
                 section.ventas
-                    article.ventaItem.item(ng-repeat="sell in orders | orderBy:'info.id':reverse=true",ng-hide='{{sell.isDelete}}')
-
-
+                    article.ventaItem.item(ng-repeat="sell in filtered = (orders | orderBy:'info.id':reverse=true | filter:filterExpr)")
+                        p ID: {{info.id}}
 
 
 

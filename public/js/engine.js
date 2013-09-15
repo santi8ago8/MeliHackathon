@@ -31,6 +31,7 @@ controllersMeli.navController = function ($scope, $rootScope) {
     $rootScope.ventasplata = 0;
     $rootScope.countquest = 0;
     $rootScope.countorder = 0;
+    $rootScope.filterExpr='';
 
     var cambiar = function (e) {
         if (e != undefined) {
