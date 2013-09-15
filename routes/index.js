@@ -6,6 +6,7 @@ var util = require('util');
 //var Buffer = require('buffer');
 exports.index = function (req, res) {
     res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
     res.render('index', {
         title: 'Express',
         isLogin: req.session.isLogin,
