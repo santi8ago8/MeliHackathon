@@ -120,15 +120,17 @@ controllersMeli.allController = function ($scope, $rootScope) {
                 dataType: 'json'
             });
             while (!elem.is('.questItem')) elem = $(elem.parent());
-            elem.hide(400);
-            for (var i = 0; i < $rootScope.questions.length; i++) {
-                var obj = $rootScope.questions[i];
-                if (obj.info.id == resp.id) {
-                    $rootScope.questions.splice(obj, 1);
+            elem.hide(400,function(){
+                for (var i = 0; i < $rootScope.questions.length; i++) {
+                    var obj = $rootScope.questions[i];
+                    if (obj.info.id == resp.id) {
+                        $rootScope.questions.splice(obj, 1);
+                    }
                 }
-            }
-            $rootScope.$apply();
-            $scope.$apply();
+                $rootScope.$apply();
+                $scope.$apply();
+            });
+
         }
 
     }
