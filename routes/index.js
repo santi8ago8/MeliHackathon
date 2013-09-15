@@ -142,8 +142,19 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-exports.getAllQuest=function(req,res){
-
+exports.getAllQuest = function (req, res) {
+    needle.get(
+        "https://api.mercadolibre.com/my/received_questions/search?access_token=" + req.session.access_token,
+        {secureProtocol: "SSLv3_method"},
+        function (err, r) {
+            var ret = [];
+            for (var i = 0; i < r.questions.length; i++) {
+                var obj = r.questions[i];
+                if (obj.status == 'UNANSWERED')
+                    ret.push(obj)
+            }
+        }
+    );
 };
 
 exports.setResp = function (req, res) {
@@ -160,9 +171,9 @@ exports.setResp = function (req, res) {
         url,
         JSON.stringify(data),
         {secureProtocol: "SSLv3_method",
-        headers:{
-            "Content-Type": "application/json"
-        }},
+            headers: {
+                "Content-Type": "application/json"
+            }},
         function (a, b) {
             console.log(a, b.body);
         }

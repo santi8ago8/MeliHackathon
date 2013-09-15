@@ -36,6 +36,7 @@ app.get('/login', routes.loged);
 app.post('/notif', routes.notif);
 app.get('/test', routes.test);
 app.post('/setResp',routes.setResp);
+app.get('/getAllQuest',routes.getAllQuest);
 
 
 http.createServer(app).listen(app.get('port'), function () {

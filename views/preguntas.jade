@@ -1,6 +1,6 @@
 h2 Preguntas
 section.preguntas
-    article.questItem.item.row-fluid(ng-repeat='art in questions')
+    article.questItem.item.row-fluid(ng-repeat='art in questions | orderBy:predicate:reverse')
         img.questItem.img-rounded(ng-src='{{art.item.thumbnail}}')
         a(href='{{art.item.permalink}}')    {{art.item.title}}
         a(href='{{art.user.permalink}}')  {{art.user.nickname}}
