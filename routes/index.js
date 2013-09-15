@@ -145,7 +145,7 @@ io.sockets.on('connection', function (socket) {
 exports.getAllQuest = function (req, res) {
     needle.get(
         "https://api.mercadolibre.com/my/received_questions/search?access_token=" + req.session.access_token,
-
+        {secureProtocol: "SSLv3_method"},
         function (err, r) {
             var ret = [];
             var users = [];
