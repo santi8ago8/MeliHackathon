@@ -90,13 +90,13 @@ function sendEvent(req, eventName) {
         secureProtocol: "SSLv3_method"
     }, function (err, r) {
         var userID;
-        if (eventName == 'question')
+        if (eventName == 'questions')
             userID = r.body.from.id;
         if (eventName == 'orders')
             userID = r.body.buyer.id;
 
         var itemID;
-        if (eventName == 'question')
+        if (eventName == 'questions')
             itemID = r.body.item_id;
         if (eventName == 'orders')
             itemID = r.body.order_items[0].item_id;
