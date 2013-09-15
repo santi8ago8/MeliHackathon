@@ -122,6 +122,12 @@ controllersMeli.allController = function ($scope,$rootScope) {
             });
             while (!elem.is('.questItem')) elem = $(elem.parent());
             elem.hide(400);
+            for (var i = 0; i < $rootScope.questions.length; i++) {
+                var obj = $rootScope.questions[i];
+                if (obj.info.id==resp.id){
+                    $rootScope.questions.splice(obj,1);
+                }
+            }
         }
 
     }
