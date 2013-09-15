@@ -2,7 +2,7 @@ h2 Preguntas
 
 section.preguntas
     article.questItem.item.row-fluid(ng-repeat='art in questions')
-        img.questItem.img-rounded(src='{{art.item.thumbnail}}')
+        img.questItem.img-rounded(nr-src='{{art.item.thumbnail}}')
         a(href='{{art.item.permalink}}') {{art.item.title}}
         span.time  {{moment(art.info.date_created).fromNow()}}
         a(href='{{art.user.permalink}}')  {{art.user.nickname}}
