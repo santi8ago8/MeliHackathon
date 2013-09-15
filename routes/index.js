@@ -12,6 +12,10 @@ exports.index = function (req, res) {
     });
 };
 
+exports.getJade = function (req, res) {
+    res.render(req.params.name);
+};
+
 exports.loged = function (req, res) {
     //console.log(req);
     req.session.code = req.query.code;
@@ -56,17 +60,28 @@ exports.notif = function (req, res) {
     res.json({});
 
     console.log(req.body);
+
+
+    if (req.body.topic=='item'){
+        sendEventItem(req.body);
+    }
+    if (req.body.topic=='orders'){
+        sendEventOrder(req.body);
+    }
+    if (req.body.topic=='questions'){
+        sendEventQuest(req.body)
+    }
+
 };
 
-exports.getJade = function (req, res) {
-    res.render(req.params.name);
-};
+
+
 
 var io = require('socket.io').listen(80801);
 
 io.sockets.on('connection', function (socket) {
-    socket.on('my other event', function (data) {
-        console.log(data);
+    socket.on('logged', function (data) {
+        socket.idClient=data.idClient;
     });
 
     socket.emit('news', { hello: 'world' });
