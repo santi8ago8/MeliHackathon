@@ -8,7 +8,7 @@ exports.index = function (req, res) {
     res.render('index', {
         title: 'Express',
         isLogin: req.session.isLogin,
-        code: req.session.id ? req.session.id : ''
+        code: req.session.idClient ? req.session.idClient : ''
     });
 };
 
@@ -38,7 +38,7 @@ exports.loged = function (req, res) {
             needle.get('https://api.mercadolibre.com/users/me?access_token=' + req.session.access_token, {
                 secureProtocol: "SSLv3_method"
             }, function (err, r) {
-                req.session.id = r.body.id;
+                req.session.idClient = r.body.id;
                 console.log(r.body.id);
                 res.redirect('/');
 
