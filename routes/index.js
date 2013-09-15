@@ -215,6 +215,7 @@ exports.getAllOrders = function (req, res) {
             var items = [];
             for (var i = 0; i < result.length; i++) {
                 var obj = result[i];
+                result[i].item = undefined;
                 if (items.indexOf(obj.order_items[0].item.id) == -1)
                     items.push(obj.item_id);
 
