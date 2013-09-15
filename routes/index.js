@@ -100,13 +100,15 @@ function sendEvent(req, eventName) {
 
 
         var data = r.body;
-
+        console.log(data);
         needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
             function (err, rItem) {
                 data.item = rItem.body;
+                console.log(data);
                 needle.get("https://api.mercadolibre.com/users/" + userID, {secureProtocol: "SSLv3_method"},
                     function (err, rUser) {
                         data.user = rUser.body;
+                        console.log(data);
                         io.sockets.in(r.body.user_id).emit(eventName, data);
                     }
                 );
