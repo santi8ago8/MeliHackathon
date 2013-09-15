@@ -1,5 +1,17 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    .row-fluid
+        .navbar
+            .navbar-inner
+                a.brand(href='#') MeliSeller
+                ul.nav
+                    li.active
+                        a(href='#') Home
+                    li
+                        a(href='#/ventas') Ventas
+                    li
+                        a(href='#/preguntas') Preguntas
+
+        h1= title
+        p Welcome to #{title}
