@@ -84,43 +84,45 @@ function sendEvent(req, eventName) {
     var url = "https://api.mercadolibre.com%s?access_token=%s"
     var finalUrl = util.format(url, req.body.resource, token);
     console.log(finalUrl);
-    needle.get(finalUrl, {
-        secureProtocol: "SSLv3_method"
-    }, function (err, r) {
+    if (token) {
+        needle.get(finalUrl, {
+            secureProtocol: "SSLv3_method"
+        }, function (err, r) {
 
-        var userID;
-        if (eventName == 'questions'){
-            userID = r.body.from.id;
-        }
-        if (eventName == 'orders'){
-            userID = r.body.buyer.id;
-        }
-
-        var itemID;
-        if (eventName == 'questions')
-            itemID = r.body.item_id;
-        if (eventName == 'orders')
-            itemID = r.body.order_items[0].item.id;
-
-        data.info= r.body;
-
-        console.log(data);
-        needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
-            function (err, rItem) {
-                data.item = rItem.body;
-                console.log(data);
-                needle.get("https://api.mercadolibre.com/users/" + userID, {secureProtocol: "SSLv3_method"},
-                    function (err, rUser) {
-                        data.user = rUser.body;
-                        console.log(data);
-                        io.sockets.in(data.user_id).emit(eventName, data);
-                    }
-                );
+            var userID;
+            if (eventName == 'questions') {
+                userID = r.body.from.id;
             }
-        );
+            if (eventName == 'orders') {
+                userID = r.body.buyer.id;
+            }
+
+            var itemID;
+            if (eventName == 'questions')
+                itemID = r.body.item_id;
+            if (eventName == 'orders')
+                itemID = r.body.order_items[0].item.id;
+
+            data.info = r.body;
+
+            console.log(data);
+            needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
+                function (err, rItem) {
+                    data.item = rItem.body;
+                    console.log(data);
+                    needle.get("https://api.mercadolibre.com/users/" + userID, {secureProtocol: "SSLv3_method"},
+                        function (err, rUser) {
+                            data.user = rUser.body;
+                            console.log(data);
+                            io.sockets.in(data.user_id).emit(eventName, data);
+                        }
+                    );
+                }
+            );
 
 
-    });
+        });
+    }
 
 }
 
