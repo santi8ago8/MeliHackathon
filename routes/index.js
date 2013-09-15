@@ -5,6 +5,7 @@ var needle = require('needle');
 var util = require('util');
 //var Buffer = require('buffer');
 exports.index = function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.render('index', {
         title: 'Express',
         isLogin: req.session.isLogin,
