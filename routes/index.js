@@ -211,7 +211,9 @@ exports.getAllOrders = function (req, res) {
         'https://api.mercadolibre.com/orders/search/recent/?seller=' + req.session.idClient + "&access_token=" + req.session.access_token,
         {secureProtocol: "SSLv3_method"},
         function (a, rOrder) {
-            console.log(rOrder.body);
+            var result = rOrder.body.results;
+
+            res.json(result); 
         }
 
     )
