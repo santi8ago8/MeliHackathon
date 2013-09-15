@@ -55,7 +55,7 @@ exports.loged = function (req, res) {
 exports.notif = function (req, res) {
     res.json({});
 
-    console.log(req.body);
+  //  console.log(req.body);
 
 
     if (req.body.topic == 'item') {
@@ -73,6 +73,7 @@ exports.notif = function (req, res) {
 
 
 function sendEvent(req, eventName) {
+    console.log('sendig event',eventName);
     var socketToSend;
     io.sockets.clients().forEach(function (socket) {
         if (req.session.idClient == socket.idClient && socket.idClient) {

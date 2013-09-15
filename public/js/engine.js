@@ -37,7 +37,16 @@ controllersMeli.navController = function ($scope) {
     cambiar();
 };
 
-controllersMeli.allController=function($scope){
+controllersMeli.allController = function ($scope) {
+    var socket = io.connect('http://santi8ago8.kd.io:8081/');
+    var idClient = $('.idClient').text();
+    if (idClient != '' && idClient != null && idClient)
+        socket.emit('logged', {
+            idClient: idClient
+        });
+    socket.on('message', function (ms,data) {
+        console.log(ms,data);
+    });
 
 };
 
