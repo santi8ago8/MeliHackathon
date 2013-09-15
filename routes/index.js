@@ -187,7 +187,7 @@ exports.getAllQuest = function (req, res) {
                             console.log('its ', rIt.body);
                             if (!Array.isArray(rIt.body))
                                 rIt.body = rIt[rIt.body];
-                            for (var i = 0; i < rIt.length; i++) {
+                            for (var i = 0; i < rIt.body.length; i++) {
                                 var item = rIt[i];
                                 for (var j = 0; j < ret.length; j++) {
                                     var objRet = ret[j];
