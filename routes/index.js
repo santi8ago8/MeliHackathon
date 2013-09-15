@@ -161,7 +161,7 @@ exports.setResp = function (req, res) {
             "Content-Type": "application/json"
         }},
         function (a, b) {
-            console.log(a, b);
+            console.log(a, b.body);
         }
     );
 
