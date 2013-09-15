@@ -1,9 +1,5 @@
 /**
- * Created with JetBrains WebStorm.
- * User: Santiago.Cordoba
- * Date: 9/13/13
- * Time: 11:53 AM
- * To change this template use File | Settings | File Templates.
+
  */
 
 var Meli = angular.module('Meli', []);
@@ -120,6 +116,8 @@ controllersMeli.allController = function ($scope, $rootScope) {
     socket.on('orders', function (data) {
         console.log("neworder", data);
         var idOrder = data.id;
+        data.date_created = data.info.date_created;
+        data.total_amount = data.info.total_amount;
         var entry = true;
         for (var i = 0; i < $rootScope.orders.length; i++) {
             var obj = $rootScope.orders[i];
