@@ -99,6 +99,8 @@ controllersMeli.allController = function ($scope) {
                 dataType: 'json'
             });
         }
+        while (!elem.is('arcticle')) elem = $(elem.parent());
+        elem.hide(400);
     }
 
 };

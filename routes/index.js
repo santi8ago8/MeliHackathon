@@ -142,6 +142,9 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
+exports.getAllQuest=function(req,res){
+
+};
 
 exports.setResp = function (req, res) {
 
