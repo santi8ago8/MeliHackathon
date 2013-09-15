@@ -1,4 +1,14 @@
 h2 Preguntas
 
 section.preguntas
-    article(ng-repeat='art in questions')
+    article.questItem.item.row-fluid(ng-repeat='art in questions')
+        img.questItem.img-rounded(src='{{art.item.thumbnail}}')
+        a(href='{{art.item.permalink}}') {{art.item.title}}
+        span.time  {{moment(art.info.date_created).fromNow()}}
+        a(href='{{art.user.permalink}}')  {{art.user.nickname}}
+        p.leap {{art.info.text}}
+        form.response.row-fluid(ng-submit='sendResp()')
+            .span12
+                textarea.span12(idquest='{{art.info.id}}')
+            .span3
+                button.span3(type='submit')
