@@ -43,7 +43,7 @@ controllersMeli.allController = function ($scope) {
     if (idClient != '' && idClient != null && idClient)
         socket.on('connect', function() {
             // Connected, let's sign-up for to receive messages for this room
-            socket.emit('room', room);
+            socket.emit('room', idClient);
         });
         socket.emit('logged', {
             idClient: idClient
