@@ -105,15 +105,15 @@ function sendEvent(req, eventName) {
 
             data.info = r.body;
 
-           // console.log(data);
+            // console.log(data);
             needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
                 function (err, rItem) {
                     data.item = rItem.body;
-                   // console.log(data);
+                    // console.log(data);
                     needle.get("https://api.mercadolibre.com/users/" + userID, {secureProtocol: "SSLv3_method"},
                         function (err, rUser) {
                             data.user = rUser.body;
-                          //  console.log(data);
+                            //  console.log(data);
                             io.sockets.in(data.user_id).emit(eventName, data);
                         }
                     );
@@ -212,8 +212,34 @@ exports.getAllOrders = function (req, res) {
         {secureProtocol: "SSLv3_method"},
         function (a, rOrder) {
             var result = rOrder.body.results;
+            var items = [];
+            for (var i = 0; i < result.length; i++) {
+                var obj = result[i];
+                if (items.indexOf(obj.order_items[0].item.id) == -1)
+                    items.push(obj.item_id);
 
-            res.json(result); 
+            }
+
+
+            needle.get('https://api.mercadolibre.com/items?ids=' + items.join(),
+                {secureProtocol: "SSLv3_method"},
+                function (err, rIt) {
+                    //console.log('its ', rIt.body);
+                    if (!Array.isArray(rIt.body))
+                        rIt.body = [rIt.body];
+                    for (var i = 0; i < rIt.body.length; i++) {
+                        var item = rIt.body[i];
+                        for (var j = 0; j < result.length; j++) {
+                            var objRet = result[j];
+                            if (objRet.order_items[0].item.id == item.id)
+                                result[j].item = item;
+                        }
+
+                        res.json(result);
+                    }
+                }
+            );
+
         }
 
     )
