@@ -7,7 +7,7 @@
  */
 
 var Meli = angular.module('Meli', []);
-
+/*
 Meli.config(function ($locationProvider, $routeProvider) {
     $routeProvider
         .when('/', {
@@ -20,7 +20,7 @@ Meli.config(function ($locationProvider, $routeProvider) {
             templateUrl: '/jade/preguntas'
         })
         .otherwise({redirectTo: '/'})
-});
+});*/
 
 var controllersMeli = {};
 
