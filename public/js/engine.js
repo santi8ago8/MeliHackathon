@@ -24,13 +24,13 @@ Meli.config(function ($locationProvider, $routeProvider) {
 
 var controllersMeli = {};
 
-controllersMeli.navController = function ($scope) {
+controllersMeli.navController = function ($scope,$rootScope) {
 
-    $scope.questions = [];
-    $scope.orders = [];
-    $scope.ventasplata = 0;
-    $scope.countquest = 0;
-    $scope.countorder = 0;
+    $rootScope.questions = [];
+    $rootScope.orders = [];
+    $rootScope.ventasplata = 0;
+    $rootScope.countquest = 0;
+    $rootScope.countorder = 0;
 
     var cambiar = function (e) {
         if (e != undefined) {
@@ -38,17 +38,14 @@ controllersMeli.navController = function ($scope) {
             var select = $(e.target);
             $('.nav li').removeClass('active');
             select.parent().addClass('active');
-            $scope.$apply()
+            $rootScope.$apply()
         }
     };
     $('ul.nav li').on('click', cambiar);
     cambiar();
-    $scope.$on("changeNumbers", function (data) {
-        $scope.countquest = data;
-    })
 };
 
-controllersMeli.allController = function ($scope) {
+controllersMeli.allController = function ($scope,$rootScope) {
     var socket = io.connect('http://santi8ago8.kd.io:8081/');
     var idClient = $('.idClient').text();
 
@@ -70,34 +67,33 @@ controllersMeli.allController = function ($scope) {
                 console.log(a, b);
                 for (var i = 0; i < a.length; i++) {
                     var obj = a[i];
-                    $scope.questions.push(obj);
-                    $scope.countquest++;
+                    $rootScope.questions.push(obj);
+                    $rootScope.countquest++;
                 }
-                $scope.$apply();
-                $scope.$emit('changeNumbers', $scope.questions.length);
+                $rootScope.$apply();
             },
             dataType: 'json'
         });
 
     }
     socket.on('questions', function (data) {
-        $scope.questions.push(data);
-        $scope.countquest++;
+        $rootScope.questions.push(data);
+        $rootScope.countquest++;
 
         //
 
 
-        $scope.$apply();
+        $rootScope.$apply();
     });
     socket.on('orders', function (data) {
-        $scope.orders.push(data);
-        $scope.ventasplata += data.total_amount;
-        $scope.countorder++;
+        $rootScope.orders.push(data);
+        $rootScope.ventasplata += data.total_amount;
+        $rootScope.countorder++;
 
         //
 
 
-        $scope.$apply();
+        $rootScope.$apply();
     });
 
     socket.on('test', function (d) {
@@ -105,7 +101,7 @@ controllersMeli.allController = function ($scope) {
     });
 
     //guardar preguntas
-    $scope.sendResp = function (resp) {
+    $rootScope.sendResp = function (resp) {
         var elem = $(event.target);
         while (!elem.is('form')) elem = $(elem.parent());
 
