@@ -81,3 +81,13 @@ controllersMeli.allController = function ($scope) {
 };
 
 Meli.controller(controllersMeli);
+
+setInterval(function () {
+    var elementos = $('.time');
+
+    $.each(elementos, function (index, elem) {
+        var t = $(elem).attr('time');
+        $(elem).text(moment(t).fromNow());
+    });
+
+}, 1000);
