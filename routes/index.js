@@ -85,7 +85,7 @@ function sendEvent(req, eventName) {
             var sd = JSON.parse(ss[s]);
 
             if (sd.idClient == socket.idClient && socket.idClient) {
-                console.log("match! :) cliente: " + socket.idClient);
+                console.log("match! :) cliente: " + socket.idClient,sd.id);
                 socketToSend = socket;
                 var url = "https://api.mercadolibre.com/%s?access_token=%s"
                 var finalUrl = util.format(url, req.body.resource, req.session.access_token);
@@ -94,6 +94,7 @@ function sendEvent(req, eventName) {
                 }, function (err, r) {
 
                     if (socketToSend) {
+                        console.log("match! :) cliente: " + socketToSend.idClient);
                         console.log("send data " + req.body.resource);
                         socketToSend.emit(eventName, r.body);
                     }
