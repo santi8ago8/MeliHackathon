@@ -24,7 +24,7 @@ exports.loged = function (req, res) {
             client_id: '4416176012263899',
             client_secret: 'ZB0IaYm6BxVHsX2OE1RkqExvCu0VZC0F',
             code: req.session.code,
-            redirect_uri: 'http://melihackathon.hp.af.cm/login'
+            redirect_uri: 'http://santi8ago8.kd.io:8080/login'
         },
         {
             secureProtocol: "SSLv3_method"
