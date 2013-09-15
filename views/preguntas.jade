@@ -1,14 +1,16 @@
 h2 Preguntas
 section.preguntas
     article.questItem.item.row-fluid(ng-repeat='art in questions')
-        img.questItem.img-rounded(nr-src='{{art.item.thumbnail}}')
+        img.questItem.img-rounded(ng-src='{{art.item.thumbnail}}')
         a(href='{{art.item.permalink}}')    {{art.item.title}}
-        a(href='{{art.user.permalink}}')  {{art.user.nickname}}   
+        a(href='{{art.user.permalink}}')  {{art.user.nickname}}
         span.time(time='{{art.info.date_created}}')
         p.leap Pregunta: {{art.info.text}}
-        form.response.row-fluid(ng-submit='sendResp()')
+        .clear
+        form.response.row-fluid()
             .span12
-                textarea.span12(idquest='{{art.info.id}}')
-            .span3
-                button.span3(type='submit')
+                textarea.span12(idquest='{{art.info.id}}',ng-model='resp.text')
+                input(type='hidden',ng-model='resp.id_user',value='{{art.info.seller_ir}}')
+            .span4
+                button.span12(type='submit',ng-click='sendResp(resp)') Responder
 
