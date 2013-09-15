@@ -23,11 +23,11 @@ block content
             p(style='display:none').idClient #{code}
             p {{user.name}}
         .span9(ng-controller='allController')
-            .homeCont.container
+            .homeCont.container.span11
                 h2 Home
-            .ventasCont.container(style='display:none')
+            .ventasCont.container.span11(style='display:none')
                 h2 Ventas
-            .preguntasCont.container(style='display:none')
+            .preguntasCont.container.span11(style='display:none')
                 h2 Preguntas
                 section.preguntas
                     article.questItem.item.row-fluid(ng-repeat="art in questions | orderBy:'info.id':reverse=true",ng-hide='{{art.isDelete}}')
