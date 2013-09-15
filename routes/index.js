@@ -168,6 +168,8 @@ exports.getAllQuest = function (req, res) {
                 {secureProtocol: "SSLv3_method"},
                 function (err, rUs) {
                     console.log('Users: ', rUs);
+                    if (!Array.isArray(rUs.body))
+                        rUs.body = [rUs.body];
                     for (var i = 0; i < rUs.body.length; i++) {
                         var us = rUs.body[i];
                         for (var j = 0; j < ret.length; j++) {
