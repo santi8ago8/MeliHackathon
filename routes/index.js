@@ -47,12 +47,8 @@ exports.loged = function (req, res) {
                 res.redirect('/');
 
             });
-
         }
-
     );
-
-
 };
 
 
@@ -62,27 +58,46 @@ exports.notif = function (req, res) {
     console.log(req.body);
 
 
-    if (req.body.topic=='item'){
-        sendEventItem(req.body);
+    if (req.body.topic == 'item') {
+        sendEvent(req, 'item');
     }
-    if (req.body.topic=='orders'){
-        sendEventOrder(req.body);
+    if (req.body.topic == 'orders') {
+        sendEvent(req, 'orders');
     }
-    if (req.body.topic=='questions'){
-        sendEventQuest(req.body)
+    if (req.body.topic == 'questions') {
+        sendEvent(req, 'questions');
     }
+
 
 };
 
 
+function sendEvent(req, eventName) {
+    var socketToSend;
+    io.sockets.clients().forEach(function (socket) {
+        if (req.session.idClient == socket.idClient && socket.idClient) {
+            socketToSend = socket
+            var url = "https://api.mercadolibre.com/%s?access_token=%s"
+            var finalUrl = util.format(url, req.body.resource, req.session.access_token);
+            needle.get(finalUrl, {
+                secureProtocol: "SSLv3_method"
+            }, function (err, r) {
+
+                if (socketToSend) {
+                    socketToSend.emit(eventName, r.body);
+                }
+
+            });
+
+        }
+    });
+}
 
 
 var io = require('socket.io').listen(80801);
 
 io.sockets.on('connection', function (socket) {
     socket.on('logged', function (data) {
-        socket.idClient=data.idClient;
+        socket.idClient = data.idClient;
     });
-
-    socket.emit('news', { hello: 'world' });
 });
