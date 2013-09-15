@@ -1,9 +1,12 @@
 /*
  * GET home page.
+ * Perdon el desorden estaba apurado
+ * Santiago N. Córdoba
  */
 var needle = require('needle');
 var util = require('util');
-//var Buffer = require('buffer');
+
+//render pagina de inicio
 exports.index = function (req, res) {
     //console.log(req);
     res.header('Access-Control-Allow-Origin', '*');
@@ -15,10 +18,12 @@ exports.index = function (req, res) {
     });
 };
 
+//renderiza un archivo jade y lo envia /jade/:namefile
 exports.getJade = function (req, res) {
     res.render(req.params.name);
 };
 
+// redirección de oauth
 exports.loged = function (req, res) {
     //console.log(req);
     req.session.code = req.query.code;
@@ -54,6 +59,7 @@ exports.loged = function (req, res) {
     );
 };
 
+//recibir las notificaciones desde Meli
 exports.notif = function (req, res) {
     res.json({});
 
@@ -69,7 +75,7 @@ exports.notif = function (req, res) {
 
 };
 
-
+//envia evento por medio de sockets a el cliente que tiene que recibirlo.
 function sendEvent(req, eventName) {
     console.log('sendig event', eventName);
 
@@ -126,13 +132,16 @@ function sendEvent(req, eventName) {
 
 }
 
+
+//test method
 exports.test = function (a, b) {
     io.sockets.emit('test', Math.random());
 };
 
-
+//init socket.io
 var io = require('socket.io').listen(8081, {log: false});
 
+//principal event socket.io
 io.sockets.on('connection', function (socket) {
     socket.on('logged', function (data) {
         //  socket.idClient = data.idClient;
@@ -142,6 +151,7 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
+//busca todas las preguntas
 exports.getAllQuest = function (req, res) {
     needle.get(
         "https://api.mercadolibre.com/my/received_questions/search?access_token=" + req.session.access_token,
@@ -206,6 +216,7 @@ exports.getAllQuest = function (req, res) {
     );
 };
 
+//busca las últimas ordenes
 exports.getAllOrders = function (req, res) {
     needle.get(
         'https://api.mercadolibre.com/orders/search/recent/?seller=' + req.session.idClient + "&access_token=" + req.session.access_token,
@@ -249,7 +260,7 @@ exports.getAllOrders = function (req, res) {
 
 };
 
-
+//envia la respuesta
 exports.setResp = function (req, res) {
 
     console.log('sending respnse: ', req.body);
