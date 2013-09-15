@@ -5,7 +5,7 @@ var needle = require('needle');
 var util = require('util');
 //var Buffer = require('buffer');
 exports.index = function (req, res) {
-    console.log(req);
+    //console.log(req);
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
     res.render('index', {
@@ -80,7 +80,7 @@ function sendEvent(req, eventName) {
     var socketToSend;
     io.sockets.clients().forEach(function (socket) {
 
-        var ss = sessionStore.sessions;
+        var ss = req.sessionStore.sessions;
         for (var s in ss) {
             var sd = JSON.parse(ss[s]);
 
