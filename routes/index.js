@@ -147,7 +147,7 @@ exports.setResp = function (req, res) {
 
     console.log('sending respnse: ', req.body);
     var data = {
-        question_id: req.body.id,
+        question_id: parseInt(req.body.id),
         text: req.body.text
     };
     console.log(data);
