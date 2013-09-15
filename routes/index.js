@@ -10,7 +10,6 @@ exports.index = function (req, res) {
         isLogin: req.session.isLogin,
         code: req.session.code ? req.session.code : 'codigo'
     });
-
 };
 
 exports.loged = function (req, res) {
@@ -55,3 +54,13 @@ exports.notif=function(req,res){
 
     console.log(req.body);
 };
+
+var io = require('socket.io').listen(80801);
+
+io.sockets.on('connection', function (socket) {
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+
+    socket.emit('news', { hello: 'world' });
+});

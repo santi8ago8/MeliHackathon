@@ -12,7 +12,6 @@ Meli.config(function ($locationProvider, $routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: '/jade/home',
-            controller: 'resumen'
         })
         .when('/ventas', {
             templateUrl: '/jade/ventas'
@@ -37,9 +36,8 @@ controllersMeli.navController = function ($scope) {
     $('ul.nav li').on('click', cambiar);
     cambiar();
 };
-controllersMeli.resumen = function ($scope) {
-    if (!$scope.user) $scope.user = {};
-    $scope.user.name = Math.random();
+
+controllersMeli.allController=function($scope){
 
 };
 

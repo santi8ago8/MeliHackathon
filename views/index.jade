@@ -15,11 +15,10 @@ block content
                     li
                         a(href='#/preguntas') Preguntas
 
-    .row-fluid
+    .row-fluid(ng-controller='allController')
 
-        .span3(ng-controller='resumen')
+        .span3
             h3 Vista rápida
-            p #{code}
             p {{user.name}}
         .span9(ng-view)
             h1= title
