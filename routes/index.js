@@ -172,7 +172,7 @@ exports.getAllQuest = function (req, res) {
                         for (var j = 0; j < ret.length; j++) {
                             var objRet = ret[j];
                             if (objRet.info.from.id == us.id)
-                                objRet.user = us;
+                                ret[j].user = us;
                         }
                     }
 
@@ -186,7 +186,7 @@ exports.getAllQuest = function (req, res) {
                                 for (var j = 0; j < ret.length; j++) {
                                     var objRet = ret[j];
                                     if (objRet.info.item_id == item.id)
-                                        objRet.item = item;
+                                        ret[j].item = item;
                                 }
                             }
                             res.json(ret);
