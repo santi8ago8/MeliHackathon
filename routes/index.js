@@ -73,7 +73,7 @@ exports.notif = function (req, res) {
 function sendEvent(req, eventName) {
     console.log('sendig event', eventName);
 
-
+    var data = req.body;
     var token;
     var ss = req.sessionStore.sessions;
     for (var s in ss) {
@@ -87,12 +87,14 @@ function sendEvent(req, eventName) {
     needle.get(finalUrl, {
         secureProtocol: "SSLv3_method"
     }, function (err, r) {
-        console.log(r.body);
+
         var userID;
-        if (eventName == 'questions')
+        if (eventName == 'questions'){
             userID = r.body.from.id;
-        if (eventName == 'orders')
+        }
+        if (eventName == 'orders'){
             userID = r.body.buyer.id;
+        }
 
         var itemID;
         if (eventName == 'questions')
@@ -100,8 +102,8 @@ function sendEvent(req, eventName) {
         if (eventName == 'orders')
             itemID = r.body.order_items[0].item.id;
 
+        data.info= r.body;
 
-        var data = r.body;
         console.log(data);
         needle.get("https://api.mercadolibre.com/items/" + itemID, {secureProtocol: "SSLv3_method"},
             function (err, rItem) {
