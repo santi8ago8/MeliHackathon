@@ -147,10 +147,13 @@ exports.setResp = function (req, res) {
 
     console.log('sending respnse: ', req.body);
     needle.post(
-        'https://api.mercadolibre.com/questions/' + req.body.id+"/answers/",
+        'https://api.mercadolibre.com/answers?access_token=' + req.body.access_token,  // + req.body.id+"/answers/",
         {
-            date_created: req.body.time,
-            status: 'active',
+
+            question_id: req.body.id,
+
+            //date_created: req.body.time,
+            /// status: 'active',
             text: req.body.text
         },
         {secureProtocol: "SSLv3_method"}, function (a, b) {
