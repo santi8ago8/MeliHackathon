@@ -151,9 +151,10 @@ exports.setResp = function (req, res) {
         text: req.body.text
     };
     var url = 'https://api.mercadolibre.com/answers?access_token=' + req.session.access_token;
+    console.log('url respuesta: ',url);
     console.log(data);
     needle.post(
-        url, 
+        url,
         data,
         {secureProtocol: "SSLv3_method"}, function (a, b) {
             console.log(a, b.body);
