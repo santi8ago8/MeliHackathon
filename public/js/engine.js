@@ -99,7 +99,7 @@ controllersMeli.allController = function ($scope) {
                 dataType: 'json'
             });
         }
-        while (!elem.is('arcticle')) elem = $(elem.parent());
+        while (!elem.is('.questItem')) elem = $(elem.parent());
         elem.hide(400);
     }
 
