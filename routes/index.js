@@ -80,16 +80,18 @@ function sendEvent(req, eventName) {
     var socketToSend;
 
     // io.sockets.clients().forEach(function (socket) {
-
-    //  var ss = req.sessionStore.sessions;
-    //  for (var s in ss) {
-    //     var sd = JSON.parse(ss[s]);
-
+    var token;
+    var ss = req.sessionStore.sessions;
+    for (var s in ss) {
+        var sd = JSON.parse(ss[s]);
+        if (req.body.user_id == sd.idClient)
+            token = sd.access_token;
+    }
     //  if (sd.idClient == socket.idClient && socket.idClient) {
     //  console.log("match! :) cliente: " + socket.idClient, sd.id);
     //socketToSend = socket;
     var url = "https://api.mercadolibre.com%s?access_token=%s"
-    var finalUrl = util.format(url, req.body.resource, sd.access_token);
+    var finalUrl = util.format(url, req.body.resource, token);
     console.log(finalUrl);
     needle.get(finalUrl, {
         secureProtocol: "SSLv3_method"
