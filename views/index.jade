@@ -36,13 +36,14 @@ block content
             .ventasCont.container.span12(style='display:none')
                 h2 Ventas
                 section.ventas
-                    article.ventaItem.item(ng-repeat="sell in filtered = (orders | orderBy:'info.id':reverse=true | filter:filterExpr)")
+                    article.ventaItem.item(ng-repeat="sell in orders | orderBy:'id':reverse=true")
 
-                        img.questItem.img-rounded(ng-src='{{art.item.thumbnail}}')
-                        a(href='{{art.item.permalink}}')
-                            strong {{art.item.title}}
-                        a(href='{{art.user.permalink}}')  {{art.user.nickname}}
-                        span.time(time='{{art.info.date_created}}')
+                        img.questItem.img-rounded(ng-src='{{sell.item.thumbnail}}')
+                        a(href='{{sell.item.permalink}}')
+                            strong {{sell.item.title}}
+                        a(href='{{sell.user.permalink}}')  {{sell.user.nickname}}
+                        span.time(time='{{sell.date_created}}')
+                        p.lead  $ {{sell.total_amount}}
 
 
             //preguntas!
